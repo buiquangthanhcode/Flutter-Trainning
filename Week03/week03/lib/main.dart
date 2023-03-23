@@ -37,17 +37,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ItemProvide>(context).readJson();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Favorite Images'),
-          leading: Padding(
-              padding: EdgeInsets.all(12),
-              child: Badge(
-                label: Text(Provider.of<ItemProvide>(context, listen: false)
-                    .far
-                    .toString()),
-                child: const Icon(Icons.favorite),
-              )),
+          // leading: Padding(
+          //     padding: EdgeInsets.all(12),
+          //     child: Badge(
+          //       label: Text(Provider.of<ItemProvide>(context, listen: false)
+          //           .far
+          //           .toString()),
+          //       child: const Icon(Icons.favorite),
+          //     )),
           actions: [
             PopupMenuButton(
               icon: const Icon(Icons.more_vert),
