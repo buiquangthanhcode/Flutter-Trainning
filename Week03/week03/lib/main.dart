@@ -14,41 +14,41 @@ void main(List<String> args) {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final List<Item> Items = [
-    Item(
-      id: '1',
-      name: 'Corporate Program Designer',
-      image: 'assets/images/img3.jpeg',
-    ),
-    Item(
-      id: '2',
-      name: 'International Group Designer',
-      image: 'assets/images/img4.jpeg',
-    ),
-    Item(
-      id: '1',
-      name: 'Future Operations Technician',
-      image: 'assets/images/img5.jpeg',
-    )
-  ];
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<ItemProvide>(context, listen: false).readJson();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ItemProvide>(context).readJson();
+    print("build");
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Favorite Images'),
-          // leading: Padding(
-          //     padding: EdgeInsets.all(12),
-          //     child: Badge(
-          //       label: Text(Provider.of<ItemProvide>(context, listen: false)
-          //           .far
-          //           .toString()),
-          //       child: const Icon(Icons.favorite),
-          //     )),
+          leading: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Consumer<ItemProvide>(
+              builder: (context, value, child) {
+                return Badge(
+                  label: Text(Provider.of<ItemProvide>(context, listen: false)
+                      .getAllItemFavorite()
+                      .toString()),
+                  child: const Icon(Icons.favorite),
+                );
+              },
+            ),
+          ),
           actions: [
             PopupMenuButton(
               icon: const Icon(Icons.more_vert),
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           ],
         ),
         body: SwipeBody(
-          items: Items,
+          items: Provider.of<ItemProvide>(context).getItems(),
         ));
   }
 }
