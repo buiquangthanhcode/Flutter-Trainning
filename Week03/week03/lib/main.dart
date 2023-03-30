@@ -14,6 +14,8 @@ void main(List<String> args) {
   ));
 }
 
+enum fillterOptions { all, favorites }
+
 class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
 
@@ -22,49 +24,60 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isFavorite = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     Provider.of<ItemProvide>(context, listen: false).readJson();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("build");
-
+    print("building");
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Favorite Images'),
-          leading: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Consumer<ItemProvide>(
-              builder: (context, value, child) {
-                return Badge(
-                  label: Text(Provider.of<ItemProvide>(context, listen: false)
-                      .getAllItemFavorite()
-                      .toString()),
-                  child: const Icon(Icons.favorite),
-                );
-              },
-            ),
+      appBar: AppBar(
+        title: const Text('Favorite Images'),
+        leading: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Consumer<ItemProvide>(
+            builder: (context, value, child) {
+              return Badge(
+                label: Text(value.getAllItemFavorite().toString()),
+                child: const Icon(Icons.favorite),
+              );
+            },
           ),
-          actions: [
-            PopupMenuButton(
-              icon: const Icon(Icons.more_vert),
-              itemBuilder: (_) => [
-                const PopupMenuItem(
-                  child: Text('Show All'),
-                ),
-                const PopupMenuItem(
-                  child: Text('Favorite'),
-                ),
-              ],
-            ),
-          ],
         ),
-        body: SwipeBody(
-          items: Provider.of<ItemProvide>(context).getItems(),
-        ));
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) {
+              setState(() {
+                if (value == fillterOptions.all) {
+                  isFavorite = false;
+                } else {
+                  isFavorite = true;
+                }
+              });
+            },
+            icon: const Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              const PopupMenuItem(
+                value: fillterOptions.all,
+                child: Text('Show All'),
+              ),
+              const PopupMenuItem(
+                value: fillterOptions.favorites,
+                child: Text('Favorite'),
+              ),
+            ],
+          ),
+        ],
+      ),
+      body: SwipeBody(
+        isFavorite: isFavorite,
+      ),
+    );
   }
 }

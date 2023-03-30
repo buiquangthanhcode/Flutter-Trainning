@@ -7,7 +7,7 @@ import '../modal/item_model.dart';
 
 class ItemProvide extends ChangeNotifier {
   List<Item> items = [];
-  void readJson() async {
+  Future<void> readJson() async {
     final String response =
         await rootBundle.loadString('assets/json/item.json');
     List<dynamic> datas = await json.decode(response);
@@ -19,6 +19,12 @@ class ItemProvide extends ChangeNotifier {
 
   List<Item> getItems() {
     return [...items];
+  }
+
+  List<Item> itemsFavorites() {
+    List<Item> data =
+        items.where((element) => element.isFavorite == true).toList();
+    return data.isEmpty ? [] : data;
   }
 
   void isToggleItem(index) {
