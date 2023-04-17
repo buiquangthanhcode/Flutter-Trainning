@@ -1,0 +1,6 @@
+import 'package:flutter/material.dart';
+
+class AppColor {
+  static Color red = Colors.red;
+  static Color blue = Colors.blue;
+}
