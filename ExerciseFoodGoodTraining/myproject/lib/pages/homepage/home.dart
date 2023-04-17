@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:myproject/app/routes/router_name.dart';
 import 'package:myproject/providers/category_provider.dart';
@@ -12,7 +11,8 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    print("Category");
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Category"),
@@ -21,7 +21,8 @@ class Homepage extends StatelessWidget {
       body: FutureBuilder(
           future: Provider.of<CategoryProvider>(context).readJson(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            if (snapshot.connectionState == ConnectionState.waiting ||
+                !snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             } else {
               return GridView.builder(

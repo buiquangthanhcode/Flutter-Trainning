@@ -19,6 +19,8 @@ class _ProductDetailState extends State<ProductDetail> {
   Widget build(BuildContext context) {
     var product = Provider.of<ProductProvider>(context, listen: false)
         .getItemWithId(widget.id);
+
+    print("Product detail");
     return Scaffold(
       body: Column(
         children: [

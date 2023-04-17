@@ -48,8 +48,7 @@ class _UIState extends State<UI> {
   // }
 
   @override
-  Widget build(BuildContext context) {
-    print(123);
+  Widget build(BuildContext context) {;
     return FutureBuilder(
       future: _dataFuture,
       builder: (context, snapshot) {

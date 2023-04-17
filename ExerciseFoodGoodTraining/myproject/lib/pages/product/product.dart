@@ -19,7 +19,7 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     var products = Provider.of<ProductProvider>(context)
         .getItemsWithCategoryId(widget.categoryID);
-
+    print("Prodcuct");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: dColorMain,
