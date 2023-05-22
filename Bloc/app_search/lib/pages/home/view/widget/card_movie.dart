@@ -13,11 +13,11 @@ class MovieCard extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
         child: ListTile(
           // leading: Image.network(
-          //   'https://image.tmdb.org/t/p/w200${movie.posterPath}',
+          //   'https://image.tmdb.org/t/p/w200${movie['poster_path']}',
           //   fit: BoxFit.cover,
           // ),
           title: Text(movie['title']),
-          subtitle: Text(movie['overview']),
+          subtitle: Text(movie['original_title']),
         ));
   }
 }

@@ -8,9 +8,9 @@ class MovieApi {
   final String baseUrl = 'https://api.themoviedb.org/3';
   late final Reponses reponse_model;
 
-  Future<List<dynamic>> searchMovies(String query) async {
+  Future<List<dynamic>> searchMovies(String query,int page) async {
     final response = await http
-        .get(Uri.parse('$baseUrl/search/movie?api_key=$apiKey&query=$query'));
+        .get(Uri.parse('$baseUrl/search/movie?api_key=$apiKey&query=$query&page=$page'));
 
     if (response.statusCode == 200) {
       final test = await jsonDecode(response.body);
